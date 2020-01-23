@@ -12,16 +12,18 @@ const webpack = require( 'webpack' );
 const { bundler, styles } = require( '@ckeditor/ckeditor5-dev-utils' );
 const CKEditorWebpackPlugin = require( '@ckeditor/ckeditor5-dev-webpack-plugin' );
 const TerserPlugin = require( 'terser-webpack-plugin' );
+const HtmlWebpackPlugin = require( 'html-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
 
 module.exports = {
-	devtool: 'source-map',
+	devtool: false, // 'source-map',
 	performance: { hints: false },
 
 	entry: path.resolve( __dirname, 'src', 'ckeditor.js' ),
 
 	output: {
 		// The name under which the editor will be exported.
-		library: 'BalloonEditor',
+		library: 'FlashyBalloonEditor',
 
 		path: path.resolve( __dirname, 'build' ),
 		filename: 'ckeditor.js',
@@ -49,12 +51,23 @@ module.exports = {
 			// UI language. Language codes follow the https://en.wikipedia.org/wiki/ISO_639-1 format.
 			// When changing the built-in language, remember to also change it in the editor's configuration (src/ckeditor.js).
 			language: 'en',
-			additionalLanguages: 'all'
+			additionalLanguages: [ 'he' ]
 		} ),
 		new webpack.BannerPlugin( {
 			banner: bundler.getLicenseBanner(),
 			raw: true
-		} )
+		} ),
+		new HtmlWebpackPlugin( {
+			title: 'My App',
+			template: 'sample/index.html',
+			inject: 'head'
+		} ),
+		new MiniCssExtractPlugin( {
+			// Options similar to the same options in webpackOptions.output
+			// both options are optional
+			filename: 'flashy-ckeditor.css',
+			chunkFilename: '[id].css',
+		} ),
 	],
 
 	module: {
@@ -67,20 +80,29 @@ module.exports = {
 				test: /\.css$/,
 				use: [
 					{
-						loader: 'style-loader',
+						loader: MiniCssExtractPlugin.loader,
 						options: {
-							injectType: 'singletonStyleTag'
-						}
+							hmr: process.env.NODE_ENV === 'development',
+						},
 					},
+					// {
+					// 	loader: 'style-loader',
+					// 	options: {
+					// 		injectType: 'singletonStyleTag'
+					// 	}
+					// },
+					'css-loader',
 					{
 						loader: 'postcss-loader',
 						options: styles.getPostCssConfig( {
 							themeImporter: {
-								themePath: require.resolve( '@ckeditor/ckeditor5-theme-lark' )
+								themePath: require.resolve(
+									'@ckeditor/ckeditor5-theme-lark'
+								)
 							},
 							minify: true
 						} )
-					},
+					}
 				]
 			}
 		]
