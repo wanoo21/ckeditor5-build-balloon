@@ -40,9 +40,18 @@
 
 		<!-- <script src="../build/ckeditor.js"></script> -->
 		<script>
-			FlashyBalloonEditor.create(document.querySelector('#editor'))
+			FlashyBalloonEditor.create(
+				document.querySelector('#editor', {
+					config: {
+						ui: {
+							width: '200px',
+							height: '300px'
+						}
+					}
+				})
+			)
 				.then(editor => {
-					console.log(editor);
+					window.editor = editor;
 				})
 				.catch(error => {
 					console.error(
