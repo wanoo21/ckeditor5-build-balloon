@@ -15,6 +15,10 @@ export default class extends Plugin {
 	init() {
 		const options = this.editor.config.get( 'placeholders' );
 
+		if ( options.hidden ) {
+			return;
+		}
+
 		this.editor.ui.componentFactory.add( 'placeholders', locale => {
 			const dropdownView = createDropdown( locale );
 			dropdownView.buttonView.set( { withText: true, label: options.label } );

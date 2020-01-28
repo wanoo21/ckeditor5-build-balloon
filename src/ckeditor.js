@@ -91,8 +91,7 @@ export default class FlashyBalloonEditor extends BalloonEditorBase {
 					'|', 'alignment',
 					'|', 'fontSize', 'fontColor', 'fontBackgroundColor',
 					'|', 'bulletedList', 'numberedList',
-					'|', 'placeholders',
-					'|', 'link', // 'horizontalLine',
+					'|', 'placeholders', 'link', // 'horizontalLine',
 					// 'ltr', 'rtl',
 					'media' // 'code',
 				]
@@ -141,20 +140,21 @@ export default class FlashyBalloonEditor extends BalloonEditorBase {
 				options: '10pt 12pt 14pt 16pt 18pt 22pt 24pt 26pt 30pt 34pt 38pt 42pt 46pt 48pt'.split( ' ' )
 			},
 			placeholders: {
-				label: 'dsds',
-				addSeparator: false,
-				items: [
-					{
-						text: 'Group 1',
-						fields: {
-							'{{email}}':
-						'\u05d3\u05d5\u05d0\u05e8 \u05d0\u05dc\u05e7\u05d8\u05e8\u05d5\u05e0\u05d9',
-							'{{phone}}':
-						'\u05de\u05e1\u05e4\u05e8 \u05d8\u05dc\u05e4\u05d5\u05df',
-							'{{props_full_name}}': 'Full Name'
-						}
-					}
-				]
+				hidden: true,
+				// label: 'dsds',
+				// addSeparator: false,
+				// items: [
+				// 	{
+				// 		text: 'Group 1',
+				// 		fields: {
+				// 			'{{email}}':
+				// 		'\u05d3\u05d5\u05d0\u05e8 \u05d0\u05dc\u05e7\u05d8\u05e8\u05d5\u05e0\u05d9',
+				// 			'{{phone}}':
+				// 		'\u05de\u05e1\u05e4\u05e8 \u05d8\u05dc\u05e4\u05d5\u05df',
+				// 			'{{props_full_name}}': 'Full Name'
+				// 		}
+				// 	}
+				// ]
 			},
 			media: {
 				async browse() {
